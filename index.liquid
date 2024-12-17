@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ shop.name }} - الصفحة الرئيسية</title>
+    <link rel="stylesheet" href="{{ 'style.css' | asset_url }}">
+</head>
+<body>
+    <!-- هيدر الموقع -->
+    <header>
+        <h1>{{ shop.name }}</h1>
+        <nav>
+            <ul>
+                <li><a href="/">الرئيسية</a></li>
+                <li><a href="/collections">الأقسام</a></li>
+                <li><a href="/cart">السلة</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- عرض المنتجات المميزة -->
+    <main>
+        <section class="featured-products">
+            <h2>منتجات مميزة</h2>
+            <div class="product-list">
+                {% for product in collections['all'].products limit: 6 %}
+                <div class="product-item">
+                    <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
+                    <h3>{{ product.title }}</h3>
+                    <p>السعر: {{ product.price | money }}</p>
+                    <a href="{{ product.url }}" class="button">عرض المنتج</a>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+
+    <!-- الفوتر -->
+    <footer>
+        <p>&copy; 2024 {{ shop.name }}. جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <script src="{{ 'script.js' | asset_url }}"></script>
+</body>
+</html>

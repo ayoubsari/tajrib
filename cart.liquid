@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>السلة - {{ shop.name }}</title>
+    <link rel="stylesheet" href="{{ 'style.css' | asset_url }}">
+</head>
+<body>
+    <!-- هيدر الموقع -->
+    <header>
+        <h1><a href="/">{{ shop.name }}</a></h1>
+        <nav>
+            <ul>
+                <li><a href="/">الرئيسية</a></li>
+                <li><a href="/collections">الأقسام</a></li>
+                <li><a href="/cart">السلة</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- محتويات السلة -->
+    <main>
+        <section class="cart">
+            <h2>محتويات السلة</h2>
+            {% if cart.item_count > 0 %}
+            <ul>
+                {% for item in cart.items %}
+                <li>
+                    <img src="{{ item.product.featured_image | img_url: 'small' }}" alt="{{ item.product.title }}">
+                    <p>{{ item.product.title }}</p>
+                    <p>العدد: {{ item.quantity }}</p>
+                    <p>السعر: {{ item.line_price | money }}</p>
+                </li>
+                {% endfor %}
+            </ul>
+            <p>إجمالي: {{ cart.total_price | money }}</p>
+            <a href="/checkout" class="button">إتمام الشراء</a>
+            {% else %}
+            <p>السلة فارغة.</p>
+            {% endif %}
+        </section>
+    </main>
+
+    <!-- الفوتر -->
+    <footer>
+        <p>&copy; 2024 {{ shop.name }}. جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <script src="{{ 'script.js' | asset_url }}"></script>
+</body>
+</html>

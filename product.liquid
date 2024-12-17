@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.title }} - {{ shop.name }}</title>
+    <link rel="stylesheet" href="{{ 'style.css' | asset_url }}">
+</head>
+<body>
+    <!-- هيدر الموقع -->
+    <header>
+        <h1><a href="/">{{ shop.name }}</a></h1>
+        <nav>
+            <ul>
+                <li><a href="/">الرئيسية</a></li>
+                <li><a href="/collections">الأقسام</a></li>
+                <li><a href="/cart">السلة</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- تفاصيل المنتج -->
+    <main>
+        <section class="product-details">
+            <div class="product-image">
+                <img src="{{ product.featured_image | img_url: 'large' }}" alt="{{ product.title }}">
+            </div>
+            <div class="product-info">
+                <h2>{{ product.title }}</h2>
+                <p>{{ product.description }}</p>
+                <p>السعر: {{ product.price | money }}</p>
+                <form action="/cart/add" method="post">
+                    <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                    <button type="submit" class="button">إضافة إلى السلة</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- الفوتر -->
+    <footer>
+        <p>&copy; 2024 {{ shop.name }}. جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <script src="{{ 'script.js' | asset_url }}"></script>
+</body>
+</html>
